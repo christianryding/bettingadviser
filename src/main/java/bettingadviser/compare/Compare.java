@@ -52,8 +52,9 @@ public class Compare extends TimerTask{
 		this.mailTo = mailTo;
 		this.mailFrom = mailFrom;
 		this.mailFromPassw = mailFromPassw;
-		counter = 0;
-		lastEventsForCompare = new ArrayList<ArrayList<Moneyline>>();
+		
+		counter = 0; // which iteration is it
+		lastEventsForCompare = new ArrayList<ArrayList<Moneyline>>(); // holds previous odds for comparison
 		df = new DecimalFormat();
 		df.setMaximumFractionDigits(2);
 		
