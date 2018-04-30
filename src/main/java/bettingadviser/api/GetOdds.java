@@ -1,4 +1,4 @@
-package bettingadviser;
+package bettingadviser.api;
 
 import pinnacle.api.Parameter;
 import pinnacle.api.PinnacleAPI;

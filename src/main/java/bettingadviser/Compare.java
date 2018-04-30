@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import bettingadviser.api.GetEvents;
+import bettingadviser.api.GetOdds;
 import mail.SendMail;
 import pinnacle.api.dataobjects.Fixtures.Event;
 
