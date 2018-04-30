@@ -12,7 +12,7 @@ import pinnacle.api.enums.LIVE_STATUS;
  * 
  * @author christian ryding
  */
-public class PrintEventsAndOdds {
+public class ParseEventsAndOdds {
 
 	private ArrayList<Event> fixtEvents;
 	private ArrayList<Moneyline> compareEvents;
@@ -23,7 +23,7 @@ public class PrintEventsAndOdds {
 	 * 
 	 * Initialize arrayslists
 	 */
-	public PrintEventsAndOdds(){
+	public ParseEventsAndOdds(){
 		compareEvents = new ArrayList<Moneyline>();
 		fixtEvents = new ArrayList<Event>();
 	}

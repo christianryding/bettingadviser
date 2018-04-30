@@ -8,6 +8,7 @@ import java.util.TimerTask;
 import bettingadviser.api.GetEvents;
 import bettingadviser.api.GetOdds;
 import bettingadviser.mail.SendMail;
+import bettingadviser.compare.ParseEventsAndOdds;
 import pinnacle.api.dataobjects.Fixtures.Event;
 
 /**
@@ -16,24 +17,27 @@ import pinnacle.api.dataobjects.Fixtures.Event;
  */
 public class Compare extends TimerTask{
 	
-	private final String mailTo, mailFrom, mailFromPassw;
-	private final String username;
-	private final String password;
-	private PrintEventsAndOdds printOut;
+	private final String mailTo, mailFrom, mailFromPassw, username, password;// constructor values
+	private int counter;
+	
+	private ParseEventsAndOdds printOut;
 	private GetEvents getEvents;
 	private GetOdds getOdds;
-	private ArrayList<Moneyline> currentEvents;
 	private Timer timer;
-	private int counter;
-	private DecimalFormat df;
+
+	private DecimalFormat df;// print out nicely
 	private ArrayList<ArrayList<Moneyline>> lastEventsForCompare;
 	private ArrayList<Moneyline> mailMoneylineEvent;
+	private ArrayList<Moneyline> currentEvents;
+	
+	// default values
 	private int SPORT_ID;
 	private int INTERVAL_MIN;
+	private double PERCENT;
 	
 	
 	/**
-	 * Constructor
+	 * Constructor, initialize values
 	 * 
 	 * @param username Username for Pinnacle API
 	 * @param password Password for Pinnacle API
@@ -56,6 +60,7 @@ public class Compare extends TimerTask{
 		// default values
 		SPORT_ID = 29;
 		INTERVAL_MIN = 10;
+		PERCENT = 0.9;
 	}
 
 	/**
@@ -71,6 +76,13 @@ public class Compare extends TimerTask{
 	 * @param interval
 	 */
 	public void setTimeInterval(int interval) { INTERVAL_MIN = interval; }
+	
+	/**
+	 * Set percent value 
+	 * 
+	 * @param percentValue
+	 */
+	public void setPercent(double percentValue) { PERCENT = percentValue; }
 	
 	/**
 	 * Abstract method TimerTask.run
@@ -93,7 +105,7 @@ public class Compare extends TimerTask{
 		
 		@Override
 		public void run() {
-			printOut = new PrintEventsAndOdds();
+			printOut = new ParseEventsAndOdds();
 			getEvents = new GetEvents(username, password);
 			getOdds = new GetOdds(username, password);
 			currentEvents = new ArrayList<Moneyline>();
@@ -163,7 +175,7 @@ public class Compare extends TimerTask{
 				if(current.getEventID() == previous.getEventID()) {
 					
 					// check away odds
-					if(current.getAway() < 3.5 && current.getAway() > 1.2 && current.getAway() <= (0.9 * previous.getAway()) ){	
+					if(current.getAway() < 3.5 && current.getAway() > 1.2 && current.getAway() <= (0.95 * previous.getAway()) ){	
 						
 						// if event id do not exist, add it
 						if(!m.exist(mailMoneylineEvent, current.getEventID())) {
@@ -184,7 +196,7 @@ public class Compare extends TimerTask{
 					}
 					
 					// check home odds
-					if(current.getHome() < 3.5 && current.getHome() > 1.2 && current.getHome() <= (0.9 * previous.getHome()) ){	
+					if(current.getHome() < 3.5 && current.getHome() > 1.2 && current.getHome() <= (0.95 * previous.getHome()) ){	
 						
 						// if event id do not exist, add it
 						if(!m.exist(mailMoneylineEvent, current.getEventID())) {
@@ -205,7 +217,7 @@ public class Compare extends TimerTask{
 					}
 					
 					// check draw odds
-					if(current.getDraw() < 3.5 && current.getDraw() > 1.2 && current.getDraw() <= (0.9 * previous.getDraw()) ){
+					if(current.getDraw() < 3.5 && current.getDraw() > 1.2 && current.getDraw() <= (0.95 * previous.getDraw()) ){
 						
 						// if event id do not exist, add it
 						if(!m.exist(mailMoneylineEvent, current.getEventID())) {
