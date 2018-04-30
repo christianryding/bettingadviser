@@ -1,4 +1,4 @@
-package bettingadviser;
+package bettingadviser.compare;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import java.util.TimerTask;
 
 import bettingadviser.api.GetEvents;
 import bettingadviser.api.GetOdds;
-import mail.SendMail;
+import bettingadviser.mail.SendMail;
 import pinnacle.api.dataobjects.Fixtures.Event;
 
 /**

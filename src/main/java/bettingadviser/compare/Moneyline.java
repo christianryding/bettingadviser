@@ -1,4 +1,4 @@
-package bettingadviser;
+package bettingadviser.compare;
 
 import java.util.ArrayList;
 

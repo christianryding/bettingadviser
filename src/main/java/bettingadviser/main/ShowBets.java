@@ -1,4 +1,6 @@
-package bettingadviser;
+package bettingadviser.main;
+
+import bettingadviser.compare.Compare;
 
 public class ShowBets {
 

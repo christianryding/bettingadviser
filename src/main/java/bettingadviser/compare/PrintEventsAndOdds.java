@@ -1,9 +1,10 @@
-package bettingadviser;
+package bettingadviser.compare;
 
 import java.util.ArrayList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
 import pinnacle.api.dataobjects.Fixtures.Event;
 import pinnacle.api.enums.LIVE_STATUS;
 

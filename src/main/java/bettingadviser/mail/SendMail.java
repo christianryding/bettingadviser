@@ -1,4 +1,4 @@
-package mail;
+package bettingadviser.mail;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -7,7 +7,7 @@ import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
 
-import bettingadviser.Moneyline;
+import bettingadviser.compare.Moneyline;
 
 /**
  * 
