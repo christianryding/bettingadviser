@@ -22,6 +22,7 @@ Create a new Compare instance and set applicable parameters for each operation. 
 Compare compare = new Compare(username, password, mailTo, mailFrom, mailFromPassw);
 compare.setSportID(12);// which sport to compare odds, optional, default 29=SOCCER
 compare.setTimeInterval(5);// how often to compare (minutes), optional, default 10 minutes
+compare.setPercent(0.95);// percent to check odds for, 0.95 = 5% difference
 compare.start();
 ```
 

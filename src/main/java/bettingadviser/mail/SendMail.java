@@ -41,59 +41,33 @@ public class SendMail {
 	 * @param mailMoneylineEvent
 	 */
 	public void sendEvents(ArrayList<Moneyline> mailMoneylineEvent) {
+		
 		try {
 			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(from));
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 			message.setSubject("Good Bets/Odds");
-		
 			
-			String tmp = "Events:\n";
+			String tmp = "Events:\n";// mail string
+			
 			for(Moneyline m : mailMoneylineEvent) {
 				
-				// TESTING TIME
+				// get current time and start time for event
 				Instant instantNow = Instant.now();
-				Instant i2, i3, i4, i5; 
+				Instant i2; 
 				i2 = Instant.parse(m.getCutoff());
-				i3 = i2.minus(Duration.ofMinutes(30));
-				i4 = i2.minus(Duration.ofMinutes(60));
-				i5 = i2.minus(Duration.ofMinutes(120));
+				
+				// calculate time left to game starts
 				long minutesToGame = Duration.between(instantNow, i2).toMinutes();
 				long hoursToGame = minutesToGame / 60;
 				minutesToGame = minutesToGame % 60;
 				
-				if(instantNow.compareTo(i2) < 0 && instantNow.compareTo(i3) > 0) {
-					System.out.println(m.getEventInfo());
-					System.out.println("LIVESTATUS: " + m.getLiveStatus());
-					System.out.println(minutesToGame);
-					System.out.println(instantNow + " is 0-30 min before " + m.getCutoff() + "\n");
-					// add event info
-					tmp += m.getEventInfo() + " | (" + hoursToGame + "h " + minutesToGame + "min -> Gamestart) " + "\n";
-				}
-				else if(instantNow.compareTo(i2) < 0 && instantNow.compareTo(i4) > 0) {
-					System.out.println(m.getEventInfo());
-					System.out.println("LIVESTATUS: " + m.getLiveStatus());
-					System.out.println(minutesToGame + "minutes left to game");
-					System.out.println(instantNow + " is 30-60 min before " + m.getCutoff() + "\n");
-					// add event info
-					tmp += m.getEventInfo() + " | (" + hoursToGame + "h " + minutesToGame + "min -> Gamestart) " + "\n";
-				}
-				else if(instantNow.compareTo(i2) < 0 && instantNow.compareTo(i5) > 0) {
-					System.out.println(m.getEventInfo());
-					System.out.println("LIVESTATUS: " + m.getLiveStatus());
-					System.out.println(minutesToGame + "minutes left to game");
-					System.out.println(instantNow + " is 60-120 min before " + m.getCutoff() + "\n");
-					// add event info
-					tmp += m.getEventInfo() + " | (" + hoursToGame + "h " + minutesToGame + "min -> Gamestart) " + "\n";
-				}
-				else{
-					System.out.println(m.getEventInfo());
-					System.out.println("LIVESTATUS: " + m.getLiveStatus());
-					System.out.println(minutesToGame + "minutes left to game");
-					System.out.println(instantNow + " is 120+ min before " + m.getCutoff() + "\n");
-					// add event info
-					tmp += m.getEventInfo() + " | (" + hoursToGame + "h " + minutesToGame + "min -> Gamestart) " + "\n";
-				}
+				// debugging
+				System.out.println(m.getEventInfo());
+				System.out.println("LIVESTATUS: " + m.getLiveStatus());
+
+				// add event info
+				tmp += m.getEventInfo() + " | (" + hoursToGame + "h " + minutesToGame + "min -> Gamestart) " + "\n";
 			}
 			
 			// add links

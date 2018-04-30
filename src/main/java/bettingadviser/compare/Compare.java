@@ -33,7 +33,7 @@ public class Compare extends TimerTask{
 	// default values
 	private int SPORT_ID;
 	private int INTERVAL_MIN;
-	private double PERCENT;
+	private double PERCENT_MARGIN;
 	
 	
 	/**
@@ -60,7 +60,7 @@ public class Compare extends TimerTask{
 		// default values
 		SPORT_ID = 29;
 		INTERVAL_MIN = 10;
-		PERCENT = 0.9;
+		PERCENT_MARGIN = 0.9;
 	}
 
 	/**
@@ -82,7 +82,7 @@ public class Compare extends TimerTask{
 	 * 
 	 * @param percentValue
 	 */
-	public void setPercent(double percentValue) { PERCENT = percentValue; }
+	public void setPercent(double percentValue) { PERCENT_MARGIN = percentValue; }
 	
 	/**
 	 * Abstract method TimerTask.run
@@ -175,7 +175,7 @@ public class Compare extends TimerTask{
 				if(current.getEventID() == previous.getEventID()) {
 					
 					// check away odds
-					if(current.getAway() < 3.5 && current.getAway() > 1.2 && current.getAway() <= (0.95 * previous.getAway()) ){	
+					if(current.getAway() < 3.5 && current.getAway() > 1.2 && current.getAway() <= (PERCENT_MARGIN * previous.getAway()) ){	
 						
 						// if event id do not exist, add it
 						if(!m.exist(mailMoneylineEvent, current.getEventID())) {
@@ -196,7 +196,7 @@ public class Compare extends TimerTask{
 					}
 					
 					// check home odds
-					if(current.getHome() < 3.5 && current.getHome() > 1.2 && current.getHome() <= (0.95 * previous.getHome()) ){	
+					if(current.getHome() < 3.5 && current.getHome() > 1.2 && current.getHome() <= (PERCENT_MARGIN * previous.getHome()) ){	
 						
 						// if event id do not exist, add it
 						if(!m.exist(mailMoneylineEvent, current.getEventID())) {
@@ -217,7 +217,7 @@ public class Compare extends TimerTask{
 					}
 					
 					// check draw odds
-					if(current.getDraw() < 3.5 && current.getDraw() > 1.2 && current.getDraw() <= (0.95 * previous.getDraw()) ){
+					if(current.getDraw() < 3.5 && current.getDraw() > 1.2 && current.getDraw() <= (PERCENT_MARGIN * previous.getDraw()) ){
 						
 						// if event id do not exist, add it
 						if(!m.exist(mailMoneylineEvent, current.getEventID())) {
