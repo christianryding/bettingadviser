@@ -1,7 +1,12 @@
 package bettingadviser.main;
 
 import bettingadviser.compare.Compare;
+import bettingadviser.enums.SPORT_IDS;
 
+/**
+ * 
+ * @author christian ryding
+ */
 public class ShowBets {
 
 	/**
@@ -20,7 +25,7 @@ public class ShowBets {
 		
 		// run program with settings
 		Compare compare = new Compare(username, password, mailTo, mailFrom, mailFromPassw);
-		compare.setSportID(12);
+		compare.setSportID(new SPORT_IDS().ESPORT);
 		compare.setTimeInterval(10);
 		compare.setPercent(0.9);
 		compare.start();

@@ -130,7 +130,8 @@ public class ParseEventsAndOdds {
 	 * 
 	 * @param periodsObj
 	 */
-	public void checkMoneyline(JsonObject periodsObj, long eventID, String home, String away, String cutoff, int leagueID, LIVE_STATUS liveStatus) {
+	public void checkMoneyline(JsonObject periodsObj, long eventID, String home, String away, 
+			String cutoff, int leagueID, LIVE_STATUS liveStatus) {
 		
 		if(periodsObj.has("moneyline")){
 			
