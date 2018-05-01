@@ -35,3 +35,7 @@ compare.start();
 - [org-json](https://mvnrepository.com/artifact/org.json/json/20180130)
 - [javax-mail](https://mvnrepository.com/artifact/javax.mail/mail)
 - [pinnacle-api-client](https://github.com/gentoku/pinnacle-api-client)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
