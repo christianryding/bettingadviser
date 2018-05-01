@@ -19,12 +19,10 @@ public class Compare extends TimerTask{
 	
 	private final String mailTo, mailFrom, mailFromPassw, username, password;// constructor values
 	private int counter;
-	
 	private ParseEventsAndOdds printOut;
 	private GetEvents getEvents;
 	private GetOdds getOdds;
 	private Timer timer;
-
 	private DecimalFormat df;// print out nicely
 	private ArrayList<ArrayList<Moneyline>> lastEventsForCompare;
 	private ArrayList<Moneyline> mailMoneylineEvent;
@@ -97,8 +95,7 @@ public class Compare extends TimerTask{
 	public void start () {timer.scheduleAtFixedRate(task, 0, 1000*60*INTERVAL_MIN);}
 	
 	/**
-	 * Every INTERVAL_MIN, check if better odds have appeared.
-	 * 
+	 * Every INTERVAL_MIN after third iteration, check if better odds have appeared.
 	 * First,second and third iteration, add odds to list. 
 	 * Fourth iteration add odds to list and compare odds from previous iterations.
 	 */
@@ -140,7 +137,6 @@ public class Compare extends TimerTask{
 				lastEventsForCompare.remove(0);
 			}
 			
-			
 			//first iterations, add events to list and compare and get list of 5 minutes good odds
 			else if(counter <= 2) {
 				counter++;
@@ -154,8 +150,6 @@ public class Compare extends TimerTask{
 			}
 		}
 	};
-	
-	
 	
 	/**
 	 * Compare events old and new odds, if better odds are given add it to list
@@ -178,15 +172,12 @@ public class Compare extends TimerTask{
 					// check away odds
 					if(current.getAway() < 3.5 && current.getAway() > 1.2 && current.getAway() <= (PERCENT_MARGIN * previous.getAway()) ){	
 						
-						// if event id do not exist, add it
+						// if event id do not exist, add moneylineinfo to list
 						if(!m.exist(mailMoneylineEvent, current.getEventID())) {
-							
 							Moneyline eventInfo = new Moneyline();
-							eventInfo.setEventInfoID(current.getAwayStr() + " | " 
-																+ previous.getAway() + " -> " + current.getAway() 
+							eventInfo.setEventInfoID(current.getAwayStr() + " | " + previous.getAway() + " -> " + current.getAway() 
 																+ " (-" + df.format(100*(1-(current.getAway()/previous.getAway()))) + "%)" 
 																+ "("+ min +"min)" + " | " + current.getCutoff());
-							
 							eventInfo.setEventID(current.getEventID());
 							eventInfo.setLeagueID(current.getLeagueID());
 							eventInfo.setSportID(SPORT_ID);
@@ -199,15 +190,12 @@ public class Compare extends TimerTask{
 					// check home odds
 					if(current.getHome() < 3.5 && current.getHome() > 1.2 && current.getHome() <= (PERCENT_MARGIN * previous.getHome()) ){	
 						
-						// if event id do not exist, add it
+						// if event id do not exist, add moneylineinfo to list
 						if(!m.exist(mailMoneylineEvent, current.getEventID())) {
-							
 							Moneyline eventInfo = new Moneyline();
-							eventInfo.setEventInfoID(current.getHomeStr() + " | "  
-														+ " " + previous.getHome() + " -> " + current.getHome() 
+							eventInfo.setEventInfoID(current.getHomeStr() + " | "  + " " + previous.getHome() + " -> " + current.getHome() 
 														+ " (-"	+ df.format(100*(1-(current.getHome()/previous.getHome()))) + "%)" 
 														+ "("+ min + "min)" + " | " + current.getCutoff());
-							
 							eventInfo.setEventID(current.getEventID());
 							eventInfo.setLeagueID(current.getLeagueID());
 							eventInfo.setSportID(SPORT_ID);
@@ -228,14 +216,12 @@ public class Compare extends TimerTask{
 														+ previous.getDraw() + " -> " + current.getDraw() 
 														+ " (-" + df.format(100 * (1-(current.getDraw()/previous.getDraw()))) + "%)" 
 														+ "(" + min + "min)" + " | " + current.getCutoff());
-							
 							eventInfo.setEventID(current.getEventID());
 							eventInfo.setLeagueID(current.getLeagueID());
 							eventInfo.setSportID(SPORT_ID);
 							eventInfo.setCutoff(current.getCutoff());
 							eventInfo.setLiveStatus(current.getLiveStatus());
 							mailMoneylineEvent.add(eventInfo);
-						
 						}
 					}
 					break;
