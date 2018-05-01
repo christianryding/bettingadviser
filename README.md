@@ -22,8 +22,8 @@ Create a new Compare instance and set applicable parameters for each operation. 
 ```java
 Compare compare = new Compare(username, password, mailTo, mailFrom, mailFromPassw);
 compare.setSportID(new SPORT_IDS().ESPORT);	// set sport
-compare.setTimeInterval(10); 				// set time interval
-compare.setPercent(0.9); 					// set percent
+compare.setTimeInterval(10); 	// set time interval
+compare.setPercent(0.9); 	// set percent
 compare.start();
 ```
 
