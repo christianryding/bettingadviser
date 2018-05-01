@@ -15,16 +15,15 @@ Example given:
 ```java
 java -jar BettingAdviser.jar myPinnacleUsername myPinnaclePassword mailAddressIWantToSendNotificationsTo mailAddressIWantToSendNotificationsFrom mailAddressIWantToSendNotificationsFromPassword
 ```
-
 These are required for the program to work, below are optional parameters that can be set.
 
 #### To set parameters
 Create a new Compare instance and set applicable parameters for each operation. You must set all of required parameters for the constructor while you don't have to set optional parameters with set methods.
 ```java
 Compare compare = new Compare(username, password, mailTo, mailFrom, mailFromPassw);
-compare.setSportID(12);		// which sport to compare odds, optional, default 29=SOCCER
-compare.setTimeInterval(5);	// how often to compare (minutes), optional, default 10 minutes
-compare.setPercent(0.95);	// percent to check odds for, 0.95 = 5% difference
+compare.setSportID(new SPORT_IDS().ESPORT);	// set sport
+compare.setTimeInterval(10); 				// set time interval
+compare.setPercent(0.9); 					// set percent
 compare.start();
 ```
 
