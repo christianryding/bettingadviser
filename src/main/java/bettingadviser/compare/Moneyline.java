@@ -66,7 +66,7 @@ public class Moneyline {
 	}
 	
     /**
-     * Check if eventID exist already
+     * Check if eventID exist in arraylist
      * 
      * @param mailMoneylineEvents
      * @param eventID
