@@ -5,11 +5,11 @@ Give suggestions on good odds from pinnacle betting site. This is done by pullin
 
 ## Usage
 #### Current run arguments in given order is:
--PinnacleUsername 
--PinnaclePassword 
--MailaddressToSend 
--MailaddressToSendFrom 
--MailaddressToSendFromPassword
+- PinnacleUsername 
+- PinnaclePassword 
+- MailaddressToSend 
+- MailaddressToSendFrom 
+- MailaddressToSendFromPassword
 
 Example given:
 ```java
