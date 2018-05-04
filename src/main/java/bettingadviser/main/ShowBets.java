@@ -13,7 +13,7 @@ public class ShowBets {
 	/**
 	 * Main program
 	 * 
-	 * @param args username and password for pinnacle mailaddressTo, mailaddressFrom and mailaddressFromPasswd
+	 * @param args username and password for pinnacle, mailaddressFrom and mailaddressFromPasswd and mailaddresses to send to
 	 */
 	public static void main(String[] args){
 		
@@ -22,9 +22,11 @@ public class ShowBets {
 		String password = args[1];
 		String mailFrom = args[2];
 		String mailFromPassw = args[3];
+		
 		ArrayList<String> mailTo = new ArrayList<String>();
-		mailTo.add(args[4]);
-		mailTo.add(args[5]);
+		for(int i = 4; i < args.length; i++) {
+			mailTo.add(args[i]);
+		}
 
 		
 		// run program with settings

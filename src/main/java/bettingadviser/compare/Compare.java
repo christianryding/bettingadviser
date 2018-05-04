@@ -196,7 +196,7 @@ public class Compare extends TimerTask{
 							Moneyline eventInfo = new Moneyline();
 							eventInfo.setEventInfoID(current.getAwayStr() + " | " + previous.getAway() + " -> " + current.getAway() 
 																+ " (-" + df.format(100*(1-(current.getAway()/previous.getAway()))) + "%)" 
-																+ "("+ min +"min)" + " | " + current.getCutoff());
+																+ "("+ min +"min)");
 							eventInfo.setEventID(current.getEventID());
 							eventInfo.setLeagueID(current.getLeagueID());
 							eventInfo.setSportID(SPORT_ID);
@@ -214,7 +214,7 @@ public class Compare extends TimerTask{
 							Moneyline eventInfo = new Moneyline();
 							eventInfo.setEventInfoID(current.getHomeStr() + " | "  + " " + previous.getHome() + " -> " + current.getHome() 
 														+ " (-"	+ df.format(100*(1-(current.getHome()/previous.getHome()))) + "%)" 
-														+ "("+ min + "min)" + " | " + current.getCutoff());
+														+ "("+ min + "min)");
 							eventInfo.setEventID(current.getEventID());
 							eventInfo.setLeagueID(current.getLeagueID());
 							eventInfo.setSportID(SPORT_ID);
@@ -234,7 +234,7 @@ public class Compare extends TimerTask{
 							eventInfo.setEventInfoID("Draw -> Home: " + current.getHomeStr() + " Away: " + current.getAwayStr() + " | "	
 														+ previous.getDraw() + " -> " + current.getDraw() 
 														+ " (-" + df.format(100 * (1-(current.getDraw()/previous.getDraw()))) + "%)" 
-														+ "(" + min + "min)" + " | " + current.getCutoff());
+														+ "(" + min + "min)");
 							eventInfo.setEventID(current.getEventID());
 							eventInfo.setLeagueID(current.getLeagueID());
 							eventInfo.setSportID(SPORT_ID);

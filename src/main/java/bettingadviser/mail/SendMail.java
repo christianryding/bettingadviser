@@ -43,26 +43,26 @@ public class SendMail {
 	 */
 	public void sendEvents(ArrayList<Moneyline> mailMoneylineEvent) {
 		
+		boolean sendMail = false;
 
-
-		
-		
+		// add e-mailToAddresses to string
+		String mailAddresses = "";
+		if(mailTo.size() > 0) {
+			for(int i = 0; i < mailTo.size(); i++) {
+				mailAddresses += mailTo.get(i); 
+				if(i != (mailTo.size()-1) ) {
+					mailAddresses += ",";
+				}
+			}
+		}
 		
 		try {
 			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(from));
-			//message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-			
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mailTo.get(0)));
-			String address = mailTo.get(1);
-			InternetAddress[] iAdressArray = InternetAddress.parse(address);
-			message.setRecipients(Message.RecipientType.CC, iAdressArray);
-			
-			
-			message.setSubject("Good Bets/Odds");
+			InternetAddress[] iAdressArray = InternetAddress.parse(mailAddresses);
+			message.setRecipients(Message.RecipientType.TO, iAdressArray);
 			
 			String tmp = "Events:\n";// mail string
-			
 			for(Moneyline m : mailMoneylineEvent) {
 				
 				// get current time and start time for event
@@ -75,23 +75,32 @@ public class SendMail {
 				long hoursToGame = minutesToGame / 60;
 				minutesToGame = minutesToGame % 60;
 				
-				// debugging
-				System.out.println(m.getEventInfo());
-				System.out.println("LIVESTATUS: " + m.getLiveStatus());
-
-				// add event info
-				tmp += m.getEventInfo() + " | (" + hoursToGame + "h " + minutesToGame + "min -> Gamestart) " + "\n";
+				// add event info if gamestart is under 7h
+				if(hoursToGame < 7) {
+					// ADD TIME .getCUTOFF
+					tmp += m.getEventInfo() + " | (" + hoursToGame + "h " + minutesToGame + "min -> Gamestart) " + "\n";
+					sendMail = true;
+					
+					// DEBUGGING
+					System.out.println(m.getEventInfo());
+					System.out.println("LIVESTATUS: " + m.getLiveStatus());
+				}
 			}
 			
 			// add links
-			if(mailMoneylineEvent.size() > 0) {
-				tmp += "\nhttps://beta.pinnacle.com/en/Sports/" + mailMoneylineEvent.get(0).getSportID(); 
-				tmp += "\nhttps://beta.pinnacle.com/en/Sports/" + mailMoneylineEvent.get(0).getSportID() + "/Live";
+			tmp += "\nhttps://beta.pinnacle.com/en/Sports/" + mailMoneylineEvent.get(0).getSportID(); 
+			tmp += "\nhttps://beta.pinnacle.com/en/Sports/" + mailMoneylineEvent.get(0).getSportID() + "/Live";
+			
+			// set content
+			message.setSubject("Good Bets/Odds");
+			message.setText(tmp);
+			
+			// send mail if good events exist
+			if(sendMail) {
+				Transport.send(message);
+				System.out.println("message sent, check inbox");
 			}
 			
-			message.setText(tmp);
-			Transport.send(message);
-			System.out.println("message sent, check inbox");
 		}catch(MessagingException me) {
 			me.printStackTrace();
 		}
