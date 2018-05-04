@@ -17,7 +17,8 @@ import pinnacle.api.dataobjects.Fixtures.Event;
  */
 public class Compare extends TimerTask{
 	
-	private final String mailTo, mailFrom, mailFromPassw, username, password;// constructor values
+	private final String mailFrom, mailFromPassw, username, password;// constructor values
+	private final ArrayList<String> mailTo;
 	private int counter;
 	private ParseEventsAndOdds printOut;
 	private GetEvents getEvents;
@@ -32,6 +33,8 @@ public class Compare extends TimerTask{
 	private int SPORT_ID;
 	private int INTERVAL_MIN;
 	private double PERCENT_MARGIN;
+	private double UPPER_MARGIN;
+	private double LOWER_MARGIN;
 	
 	
 	/**
@@ -43,7 +46,7 @@ public class Compare extends TimerTask{
 	 * @param mailFrom
 	 * @param mailFromPassw
 	 */
-	public Compare(String username, String password, String mailTo, String mailFrom, String mailFromPassw) {
+	public Compare(String username, String password, String mailFrom, String mailFromPassw, ArrayList<String> mailTo) {
 		timer = new Timer();
 		this.username = username;
 		this.password = password;
@@ -60,6 +63,8 @@ public class Compare extends TimerTask{
 		SPORT_ID = 29;
 		INTERVAL_MIN = 10;
 		PERCENT_MARGIN = 0.9;
+		UPPER_MARGIN = 3.5;
+		LOWER_MARGIN = 1.2;
 	}
 
 	/**
@@ -82,6 +87,20 @@ public class Compare extends TimerTask{
 	 * @param percentValue
 	 */
 	public void setPercent(double percentValue) { PERCENT_MARGIN = percentValue; }
+	
+	/**
+	 * Set upper margin
+	 * 
+	 * @param margin
+	 */
+	public void setUpperMargin(double margin) { UPPER_MARGIN = margin; }
+	
+	/**
+	 * Set lower margin
+	 * 
+	 * @param margin
+	 */
+	public void setLowerMargin(double margin) { LOWER_MARGIN = margin; }
 	
 	/**
 	 * Abstract method TimerTask.run
@@ -170,7 +189,7 @@ public class Compare extends TimerTask{
 				if(current.getEventID() == previous.getEventID()) {
 					
 					// check away odds
-					if(current.getAway() < 3.5 && current.getAway() > 1.2 && current.getAway() <= (PERCENT_MARGIN * previous.getAway()) ){	
+					if(current.getAway() < UPPER_MARGIN && current.getAway() > LOWER_MARGIN && current.getAway() <= (PERCENT_MARGIN * previous.getAway()) ){	
 						
 						// if event id do not exist, add moneylineinfo to list
 						if(!m.exist(mailMoneylineEvent, current.getEventID())) {
@@ -188,7 +207,7 @@ public class Compare extends TimerTask{
 					}
 					
 					// check home odds
-					if(current.getHome() < 3.5 && current.getHome() > 1.2 && current.getHome() <= (PERCENT_MARGIN * previous.getHome()) ){	
+					if(current.getHome() < UPPER_MARGIN && current.getHome() > LOWER_MARGIN && current.getHome() <= (PERCENT_MARGIN * previous.getHome()) ){	
 						
 						// if event id do not exist, add moneylineinfo to list
 						if(!m.exist(mailMoneylineEvent, current.getEventID())) {
@@ -206,7 +225,7 @@ public class Compare extends TimerTask{
 					}
 					
 					// check draw odds
-					if(current.getDraw() < 3.5 && current.getDraw() > 1.2 && current.getDraw() <= (PERCENT_MARGIN * previous.getDraw()) ){
+					if(current.getDraw() < UPPER_MARGIN && current.getDraw() > LOWER_MARGIN && current.getDraw() <= (PERCENT_MARGIN * previous.getDraw()) ){
 						
 						// if event id do not exist, add it
 						if(!m.exist(mailMoneylineEvent, current.getEventID())) {

@@ -15,13 +15,14 @@ import bettingadviser.compare.Moneyline;
  */
 public class SendMail {
 
-	private final String to, from, password;
+	private final String from, password;
+	private final ArrayList<String> mailTo;
 	private Properties properties;
 	private Session session;
 	
-	public SendMail(String gmailTo, String gmailFrom, String pass) {
+	public SendMail(ArrayList<String> gmailTo, String gmailFrom, String pass) {
 		from = gmailFrom;
-		to = gmailTo;
+		mailTo = gmailTo;
 		password = pass;
 		properties = new Properties();
 		properties.put("mail.smtp.auth", "true");
@@ -42,10 +43,22 @@ public class SendMail {
 	 */
 	public void sendEvents(ArrayList<Moneyline> mailMoneylineEvent) {
 		
+
+
+		
+		
+		
 		try {
 			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(from));
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+			//message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+			
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mailTo.get(0)));
+			String address = mailTo.get(1);
+			InternetAddress[] iAdressArray = InternetAddress.parse(address);
+			message.setRecipients(Message.RecipientType.CC, iAdressArray);
+			
+			
 			message.setSubject("Good Bets/Odds");
 			
 			String tmp = "Events:\n";// mail string
