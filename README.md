@@ -9,7 +9,7 @@ Give suggestions on good odds from pinnacle betting site. This is done by pullin
 - Password for Pinnacle
 - E-mailaddress to send from
 - Password for E-mailaddress to send from
-- E-mailaddresses to send to
+- E-mailaddresses to send to (multiple addresses can be given)
 
 Example given:
 ```java
@@ -18,10 +18,10 @@ java -jar BettingAdviser.jar myPinnacleUsername myPinnaclePassword mailAddressIW
 These are required for the program to work, below are optional parameters that can be set.
 
 #### To set parameters
-Create a new Compare instance and set applicable parameters for each operation. You must set all of required parameters for the constructor, the set methods are optional.
+In ShowBets.java, a Compare instance exists where  u can set optional settings, with the set methods given, example below.
 ```java
 Compare compare = new Compare(username, password, mailFrom, mailFromPassw, mailTo);
-compare.setSportID(new SPORT_IDS().ESPORT);	// set sport 
+compare.setSportID(new SPORT_IDS().ESPORT);	// set sport, default is E-sports
 compare.setTimeInterval(10);	// set update interval, default is 10 minutes 
 compare.setPercent(0.95);	// set margin in percent (0.95=5%), default is (0.9=10%) 
 compare.setLowerMargin(1.3);	// set lower margin for odds, default is 1.2
