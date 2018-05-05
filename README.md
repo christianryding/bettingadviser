@@ -22,7 +22,7 @@ Create a new Compare instance and set applicable parameters for each operation. 
 ```java
 Compare compare = new Compare(username, password, mailFrom, mailFromPassw, mailTo);
 compare.setSportID(new SPORT_IDS().ESPORT);	// set sport 
-compare.setTimeInterval(10);	// set update interval 
+compare.setTimeInterval(10);	// set update interval, default is 10 minutes 
 compare.setPercent(0.95);	// set margin in percent (0.95=5%), default is (0.9=10%) 
 compare.setLowerMargin(1.3);	// set lower margin for odds, default is 1.2
 compare.setUpperMargin(3.4);	// set higher margin for odds, default is 3.5
