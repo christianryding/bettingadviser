@@ -22,13 +22,13 @@ public class ShowBets {
 		String password = args[1];
 		String mailFrom = args[2];
 		String mailFromPassw = args[3];
-		
+
+		// get every emailaddress to send to
 		ArrayList<String> mailTo = new ArrayList<String>();
 		for(int i = 4; i < args.length; i++) {
 			mailTo.add(args[i]);
 		}
 
-		
 		// run program with settings
 		Compare compare = new Compare(username, password, mailFrom, mailFromPassw, mailTo);
 		compare.setSportID(new SPORT_IDS().ESPORT);

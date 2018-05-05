@@ -7,23 +7,25 @@ Give suggestions on good odds from pinnacle betting site. This is done by pullin
 #### Current run arguments in given order is:
 - Username for Pinnacle
 - Password for Pinnacle
-- E-mail address to send to
-- E-mail address to send from
-- Password for E-mail address to send from
+- E-mailaddress to send from
+- Password for E-mailaddress to send from
+- E-mailaddresses to send to
 
 Example given:
 ```java
-java -jar BettingAdviser.jar myPinnacleUsername myPinnaclePassword mailAddressIWantToSendNotificationsTo mailAddressIWantToSendNotificationsFrom mailAddressIWantToSendNotificationsFromPassword
+java -jar BettingAdviser.jar myPinnacleUsername myPinnaclePassword mailAddressIWantToSendNotificationsFrom mailAddressIWantToSendNotificationsFromPassword mailAddressIWantToSendNotificationsToNr1 mailAddressIWantToSendNotificationsToNrX..
 ```
 These are required for the program to work, below are optional parameters that can be set.
 
 #### To set parameters
-Create a new Compare instance and set applicable parameters for each operation. You must set all of required parameters for the constructor while you don't have to set optional parameters with set methods.
+Create a new Compare instance and set applicable parameters for each operation. You must set all of required parameters for the constructor, the set methods are optional.
 ```java
-Compare compare = new Compare(username, password, mailTo, mailFrom, mailFromPassw);
-compare.setSportID(new SPORT_IDS().ESPORT);	// set sport
-compare.setTimeInterval(10); 	// set time interval
-compare.setPercent(0.9); 	// set percent
+Compare compare = new Compare(username, password, mailFrom, mailFromPassw, mailTo);
+compare.setSportID(new SPORT_IDS().ESPORT);	// set sport 
+compare.setTimeInterval(10);	// set update interval 
+compare.setPercent(0.95);	// set margin in percent (0.95=5%), default is (0.9=10%) 
+compare.setLowerMargin(1.3);	// set lower margin for odds, default is 1.2
+compare.setUpperMargin(3.4);	// set higher margin for odds, default is 3.5
 compare.start();
 ```
 
