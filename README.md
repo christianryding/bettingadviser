@@ -3,18 +3,6 @@
 ## About
 Give suggestions on good odds from pinnacle betting site. This is done by pulling odds and event information from pinnacles API. After it compares the home, away and draw odds versus older odds. If a specific odds have dropped more than 10 percent before game starts, it is considered a good bet. It will then send an email to notify you about all these events with good odds.
 
-### Installing
-A step by step series of examples that tell you have to get a development env running
-Say what the step will be
-```
-Give the example
-```
-And repeat
-```
-until finished
-```
-End with an example of getting some data out of the system or using it for a little demo
-
 ## Usage
 #### Current run arguments in given order is:
 - Username for Pinnacle
