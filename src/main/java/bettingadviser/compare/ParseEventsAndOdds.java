@@ -138,7 +138,6 @@ public class ParseEventsAndOdds {
 
 			Moneyline moneyline = new Moneyline();
 			moneyline.setEventID(eventID);
-			moneyline.setDraw(moneyLineObj.get("draw").getAsDouble());
 			moneyline.setHome(moneyLineObj.get("home").getAsDouble());
 			moneyline.setAway(moneyLineObj.get("away").getAsDouble());
 			moneyline.setHomeStr(home);
