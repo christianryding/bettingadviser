@@ -29,28 +29,6 @@ public class Moneyline {
 	public Moneyline() {}
 	
 	/**
-	 * Constructor 
-	 * 
-	 * @param eventID id number for event
-	 * @param draw odds for draw
-	 * @param home odds for home team
-	 * @param away odds for away team
-	 * @param homeStr home team name
-	 * @param awayStr away team name
-	 */
-	public Moneyline(long eventID, double draw, double home, double away, String homeStr, String awayStr) {
-		this.eventID = eventID;
-		this.draw = draw;
-		this.home = home;
-		this.away = away;
-		this.homeStr = homeStr;
-		this.awayStr = awayStr;
-		this.sportID = 29;
-		this.liveStatus = LIVE_STATUS.UNDEFINED;//default value
-		
-	}
-	
-	/**
 	 * Constructor
 	 * 
 	 * @param eventID

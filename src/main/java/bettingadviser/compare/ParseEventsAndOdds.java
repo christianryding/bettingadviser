@@ -39,7 +39,6 @@ public class ParseEventsAndOdds {
 	public ArrayList<Moneyline> parseAndPrint(ArrayList<Event> fixtEvents, String jsonOdds) {
 		
 		this.fixtEvents = fixtEvents;
-		compareEvents.clear();
 		JsonParser jsonParser = new JsonParser();
 		JsonObject jsonObject = jsonParser.parse(jsonOdds).getAsJsonObject();
 		JsonArray leagueArr = null;
