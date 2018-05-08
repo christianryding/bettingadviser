@@ -21,12 +21,12 @@ These are required for the program to work, below are optional parameters that c
 In ShowBets.java, a Compare instance exists where  u can set optional settings, with the set methods given, example below.
 ```java
 Compare compare = new Compare(username, password, mailFrom, mailFromPassw, mailTo);
-compare.setSportID(new SPORT_IDS().ESPORT);	// set sport, default is E-sports
-compare.setTimeInterval(10);	// set update interval, default is 10 minutes 
+compare.setSportID(new SPORT_IDS().ESPORT);	// set sport to cover, default is SOCCER
+compare.setTimeInterval(5);	// set update interval, default is 10 minutes 
 compare.setPercent(0.95);	// set margin in percent (0.95=5%), default is (0.9=10%) 
 compare.setLowerMargin(1.3);	// set lower margin for odds, default is 1.2
 compare.setUpperMargin(3.4);	// set higher margin for odds, default is 3.5
-compare.setCheckLiveEvents(false);	// set true if live events should be covered
+compare.setCheckLiveEvents(true);	// set true if live events should be covered, default is false
 compare.start();
 ```
 

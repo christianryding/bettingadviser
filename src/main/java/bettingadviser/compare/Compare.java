@@ -35,6 +35,7 @@ public class Compare extends TimerTask{
 	private double PERCENT_MARGIN;
 	private double UPPER_MARGIN;
 	private double LOWER_MARGIN;
+	private boolean CHECK_LIVE_EVENTS;
 	
 	
 	/**
@@ -54,7 +55,7 @@ public class Compare extends TimerTask{
 		this.mailFrom = mailFrom;
 		this.mailFromPassw = mailFromPassw;
 		
-		counter = 0; // which iteration is it
+		counter = 0; // iteration counter
 		lastEventsForCompare = new ArrayList<ArrayList<Moneyline>>(); // holds previous odds for comparison
 		df = new DecimalFormat();
 		df.setMaximumFractionDigits(2);
@@ -65,14 +66,17 @@ public class Compare extends TimerTask{
 		PERCENT_MARGIN = 0.9;
 		UPPER_MARGIN = 3.5;
 		LOWER_MARGIN = 1.2;
+		CHECK_LIVE_EVENTS = false;
 	}
 
+	
 	/**
 	 * Set sport to get events and odds for 
 	 * 
 	 * @param sportID
 	 */
 	public void setSportID(int sportID) { SPORT_ID = sportID; }
+	
 	
 	/**
 	 * Set interval rate for getting and comparing odds
@@ -81,12 +85,14 @@ public class Compare extends TimerTask{
 	 */
 	public void setTimeInterval(int interval) { INTERVAL_MIN = interval; }
 	
+	
 	/**
 	 * Set percent value 
 	 * 
 	 * @param percentValue
 	 */
 	public void setPercent(double percentValue) { PERCENT_MARGIN = percentValue; }
+	
 	
 	/**
 	 * Set upper margin
@@ -95,6 +101,7 @@ public class Compare extends TimerTask{
 	 */
 	public void setUpperMargin(double margin) { UPPER_MARGIN = margin; }
 	
+	
 	/**
 	 * Set lower margin
 	 * 
@@ -102,16 +109,27 @@ public class Compare extends TimerTask{
 	 */
 	public void setLowerMargin(double margin) { LOWER_MARGIN = margin; }
 	
+	
+	/**
+	 * Set if live events should be covered
+	 * 
+	 * @param checkLiveEvents
+	 */
+	public void setCheckLiveEvents(boolean checkLiveEvents){ CHECK_LIVE_EVENTS = checkLiveEvents; }
+	
+	
 	/**
 	 * Abstract method TimerTask.run
 	 */
 	@Override
 	public void run() {}
 	
+	
 	/**
 	 * Start timertask that runs every INTERVAL_MIN minutes
 	 */
 	public void start () {timer.scheduleAtFixedRate(task, 0, 1000*60*INTERVAL_MIN);}
+	
 	
 	/**
 	 * Every INTERVAL_MIN after third iteration, check if better odds have appeared.
@@ -122,7 +140,7 @@ public class Compare extends TimerTask{
 		
 		@Override
 		public void run() {
-			printOut = new ParseEventsAndOdds();
+			printOut = new ParseEventsAndOdds(CHECK_LIVE_EVENTS);
 			getEvents = new GetEvents(username, password);
 			getOdds = new GetOdds(username, password);
 			currentEvents = new ArrayList<Moneyline>();
@@ -169,6 +187,7 @@ public class Compare extends TimerTask{
 			}
 		}
 	};
+	
 	
 	/**
 	 * Compare events old and new odds, if better odds are given add it to list

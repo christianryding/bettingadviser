@@ -32,10 +32,11 @@ public class ShowBets {
 		// run program with settings
 		Compare compare = new Compare(username, password, mailFrom, mailFromPassw, mailTo);
 		compare.setSportID(new SPORT_IDS().ESPORT);
-		compare.setTimeInterval(10);
-		compare.setPercent(0.9);
+		//compare.setTimeInterval(10);
+		//compare.setPercent(0.9);
 		//compare.setLowerMargin(1.3);
 		//compare.setUpperMargin(3.4);
+		//compare.setCheckLiveEvents(false);
 		compare.start();
 	}
 }
