@@ -13,12 +13,12 @@ public class Moneyline {
 
 	private long eventID;
 	private int leagueID;
-	private double draw = Double.NaN;
-	private double home = Double.NaN;
-	private double away = Double.NaN;
-	private String homeStr = null;
-	private String awayStr = null;
-	private String cutoff = null;
+	private double draw;
+	private double home;
+	private double away;
+	private String homeStr;
+	private String awayStr;
+	private String cutoff;
     private String eventInfo;
     private int sportID;
     private LIVE_STATUS liveStatus;
@@ -26,21 +26,14 @@ public class Moneyline {
 	/**
 	 * Constructor
 	 */
-	public Moneyline() {}
-	
-	/**
-	 * Constructor
-	 * 
-	 * @param eventID
-	 * @param draw
-	 * @param home
-	 * @param away
-	 */
-	public Moneyline(long eventID, double draw, double home, double away) {
-		this.eventID = eventID;
-		this.draw = draw;
-		this.home = home;
-		this.away = away;
+	public Moneyline() {
+		draw = Double.NaN;
+		home = Double.NaN;
+		away = Double.NaN;
+		homeStr = null;
+		awayStr = null;
+		cutoff = null;
+		eventInfo = null;
 	}
 	
     /**

@@ -136,26 +136,22 @@ public class ParseEventsAndOdds {
 			
 			JsonObject moneyLineObj = periodsObj.get("moneyline").getAsJsonObject();
 
+			Moneyline moneyline = new Moneyline();
+			moneyline.setEventID(eventID);
+			moneyline.setDraw(moneyLineObj.get("draw").getAsDouble());
+			moneyline.setHome(moneyLineObj.get("home").getAsDouble());
+			moneyline.setAway(moneyLineObj.get("away").getAsDouble());
+			moneyline.setHomeStr(home);
+			moneyline.setAwayStr(away);
+			moneyline.setCutoff(cutoff);
+			moneyline.setLeagueID(leagueID);
+			moneyline.setLiveStatus(liveStatus);
 			if(moneyLineObj.get("draw") != null){
-				Moneyline moneyline = new Moneyline(eventID, moneyLineObj.get("draw").getAsDouble(),
-													moneyLineObj.get("home").getAsDouble(), moneyLineObj.get("away").getAsDouble());
-				moneyline.setHomeStr(home);
-				moneyline.setAwayStr(away);
-				moneyline.setCutoff(cutoff);
-				moneyline.setLeagueID(leagueID);
-				moneyline.setLiveStatus(liveStatus);
-				compareEvents.add(moneyline);
+				moneyline.setDraw(moneyLineObj.get("draw").getAsDouble());
 			}
-			else {
-				Moneyline moneyline = new Moneyline(eventID, Double.NaN, moneyLineObj.get("home").getAsDouble(),
-													moneyLineObj.get("away").getAsDouble());
-				moneyline.setHomeStr(home);
-				moneyline.setAwayStr(away);
-				moneyline.setCutoff(cutoff);
-				moneyline.setLeagueID(leagueID);
-				moneyline.setLiveStatus(liveStatus);
-				compareEvents.add(moneyline);
-			}
+			
+			compareEvents.add(moneyline);
+			
 		}
 	}
 	

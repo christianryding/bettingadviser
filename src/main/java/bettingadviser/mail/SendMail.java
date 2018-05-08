@@ -80,11 +80,12 @@ public class SendMail {
 					// ADD TIME .getCUTOFF
 					tmp += m.getEventInfo() + " | (" + hoursToGame + "h " + minutesToGame + "min -> Gamestart) " + "\n";
 					sendMail = true;
-					
-					// DEBUGGING
-					System.out.println(m.getEventInfo());
-					System.out.println("LIVESTATUS: " + m.getLiveStatus());
 				}
+				
+				// DEBUGGING
+				System.out.println(m.getEventInfo());
+				System.out.println("LIVESTATUS: " + m.getLiveStatus());
+				System.out.println(m.getEventInfo());
 			}
 			
 			// add links
@@ -98,7 +99,7 @@ public class SendMail {
 			// send mail if good events exist
 			if(sendMail) {
 				Transport.send(message);
-				System.out.println("message sent, check inbox");
+				System.out.println("E-mail sent");
 			}
 			
 		}catch(MessagingException me) {
