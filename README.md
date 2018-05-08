@@ -26,6 +26,7 @@ compare.setTimeInterval(10);	// set update interval, default is 10 minutes
 compare.setPercent(0.95);	// set margin in percent (0.95=5%), default is (0.9=10%) 
 compare.setLowerMargin(1.3);	// set lower margin for odds, default is 1.2
 compare.setUpperMargin(3.4);	// set higher margin for odds, default is 3.5
+compare.setCheckLiveEvents(false);	// set true if live events should be covered
 compare.start();
 ```
 

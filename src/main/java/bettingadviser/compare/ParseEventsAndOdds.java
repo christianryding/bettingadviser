@@ -16,6 +16,7 @@ public class ParseEventsAndOdds {
 
 	private ArrayList<Event> fixtEvents;
 	private ArrayList<Moneyline> compareEvents;
+	private final boolean CHECK_LIVE_EVENTS;
 
 	
 	/**
@@ -23,7 +24,8 @@ public class ParseEventsAndOdds {
 	 * 
 	 * Initialize arrayslists
 	 */
-	public ParseEventsAndOdds(){
+	public ParseEventsAndOdds(boolean checkLiveEvents){
+		CHECK_LIVE_EVENTS = checkLiveEvents;
 		compareEvents = new ArrayList<Moneyline>();
 		fixtEvents = new ArrayList<Event>();
 	}
@@ -100,9 +102,9 @@ public class ParseEventsAndOdds {
 							addEvent = true;
 						}
 						// add live event
-						else if(e.liveStatus().get().equals(LIVE_STATUS.LIVE_BETTING)) {
-							//liveStatus = e.liveStatus().get();
-							//addEvent = true;
+						else if(e.liveStatus().get().equals(LIVE_STATUS.LIVE_BETTING) && CHECK_LIVE_EVENTS == true) {
+							liveStatus = e.liveStatus().get();
+							addEvent = true;
 						}
 							
 						homeStr = e.home().toString();
@@ -129,13 +131,10 @@ public class ParseEventsAndOdds {
 	 * 
 	 * @param periodsObj
 	 */
-	public void checkMoneyline(JsonObject periodsObj, long eventID, String home, String away, 
-			String cutoff, int leagueID, LIVE_STATUS liveStatus) {
+	public void checkMoneyline(JsonObject periodsObj, long eventID, String home, String away, String cutoff, int leagueID, LIVE_STATUS liveStatus) {
 		
 		if(periodsObj.has("moneyline")){
-			
 			JsonObject moneyLineObj = periodsObj.get("moneyline").getAsJsonObject();
-
 			Moneyline moneyline = new Moneyline();
 			moneyline.setEventID(eventID);
 			moneyline.setHome(moneyLineObj.get("home").getAsDouble());
@@ -148,7 +147,6 @@ public class ParseEventsAndOdds {
 			if(moneyLineObj.get("draw") != null){
 				moneyline.setDraw(moneyLineObj.get("draw").getAsDouble());
 			}
-			
 			compareEvents.add(moneyline);
 			
 		}
