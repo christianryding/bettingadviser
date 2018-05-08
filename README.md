@@ -18,7 +18,7 @@ java -jar BettingAdviser.jar myPinnacleUsername myPinnaclePassword mailAddressIW
 These are required for the program to work, below are optional parameters that can be set.
 
 #### To set parameters
-In ShowBets.java, a Compare instance exists where  u can set optional settings, with the set methods given, example below.
+In ShowBets.java, a Compare instance exists where you can set optional settings with given set methods, example below.
 ```java
 Compare compare = new Compare(username, password, mailFrom, mailFromPassw, mailTo);
 compare.setSportID(new SPORT_IDS().ESPORT);	// set sport to cover, default is SOCCER
