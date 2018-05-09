@@ -77,7 +77,6 @@ public class SendMail {
 				
 				// add event info if gamestart is under 7h
 				if(hoursToGame < 7) {
-					// ADD TIME .getCUTOFF
 					tmp += m.getEventInfo() + " | (" + hoursToGame + "h " + minutesToGame + "min -> Gamestart) " + "\n";
 					sendMail = true;
 				}
