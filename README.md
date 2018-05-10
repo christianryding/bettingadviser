@@ -27,6 +27,7 @@ compare.setPercent(0.95);	// set margin in percent (0.95=5%), default is (0.9=10
 compare.setLowerMargin(1.3);	// set lower margin for odds, default is 1.2
 compare.setUpperMargin(3.4);	// set higher margin for odds, default is 3.5
 compare.setCheckLiveEvents(true);	// set true if live events should be covered, default is false
+compare.setTimeRange(8);	// set time range for hours before gamestart, default is to only include events that starts 7 hours before gamestart
 compare.start();
 ```
 

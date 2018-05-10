@@ -283,8 +283,8 @@ public class Compare extends TimerTask{
 	/**
 	 * See if event is within given time range
 	 * 
-	 * @param m
-	 * @return
+	 * @param m Moneyline event
+	 * @return true if event is within TIME_RANGE, false if not
 	 */
 	public boolean inTimeRange(Moneyline m) {
 		
