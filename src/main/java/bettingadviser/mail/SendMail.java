@@ -42,8 +42,6 @@ public class SendMail {
 	 * @param mailMoneylineEvent
 	 */
 	public void sendEvents(ArrayList<Moneyline> mailMoneylineEvent) {
-		
-		boolean sendMail = false;
 
 		// add e-mailToAddresses to string
 		String mailAddresses = "";
@@ -75,6 +73,7 @@ public class SendMail {
 				long hoursToGame = minutesToGame / 60;
 				minutesToGame = minutesToGame % 60;
 				
+				// add event info to string
 				tmp += m.getEventInfo() + " | (" + hoursToGame + "h " + minutesToGame + "min -> Gamestart) " + "\n";
 				
 				// DEBUGGING
@@ -88,10 +87,9 @@ public class SendMail {
 			tmp += "\nhttps://beta.pinnacle.com/en/Sports/" + mailMoneylineEvent.get(0).getSportID(); 
 			tmp += "\nhttps://beta.pinnacle.com/en/Sports/" + mailMoneylineEvent.get(0).getSportID() + "/Live";
 			
-			// set content
+			// set content and send mail
 			message.setSubject("Good Bets/Odds");
 			message.setText(tmp);
-
 			Transport.send(message);
 			System.out.println("E-mail sent");
 			

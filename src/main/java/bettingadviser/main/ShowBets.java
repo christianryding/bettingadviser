@@ -37,6 +37,7 @@ public class ShowBets {
 		//compare.setLowerMargin(1.3);
 		//compare.setUpperMargin(3.4);
 		//compare.setCheckLiveEvents(false);
+		//compare.setTimeRange(8);
 		compare.start();
 	}
 }

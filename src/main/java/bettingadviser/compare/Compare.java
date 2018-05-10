@@ -222,7 +222,7 @@ public class Compare extends TimerTask{
 					// check away odds
 					if(current.getAway() < UPPER_MARGIN && current.getAway() > LOWER_MARGIN && current.getAway() <= (PERCENT_MARGIN * previous.getAway()) ){	
 						
-						// if event id do not exist, add moneylineinfo to list
+						// if event id do not exist, and is in time range, add moneylineinfo to list
 						if(!m.exist(mailMoneylineEvent, current.getEventID()) && inTimeRange(current)) {
 							Moneyline eventInfo = new Moneyline();
 							eventInfo.setEventInfoID(current.getAwayStr() + " | " + previous.getAway() + " -> " + current.getAway() 
@@ -240,7 +240,7 @@ public class Compare extends TimerTask{
 					// check home odds
 					if(current.getHome() < UPPER_MARGIN && current.getHome() > LOWER_MARGIN && current.getHome() <= (PERCENT_MARGIN * previous.getHome()) ){	
 						
-						// if event id do not exist, add moneylineinfo to list
+						// if event id do not exist, and is in time range, add moneylineinfo to list
 						if(!m.exist(mailMoneylineEvent, current.getEventID()) && inTimeRange(current)) {
 							Moneyline eventInfo = new Moneyline();
 							eventInfo.setEventInfoID(current.getHomeStr() + " | "  + " " + previous.getHome() + " -> " + current.getHome() 
@@ -258,7 +258,7 @@ public class Compare extends TimerTask{
 					// check draw odds
 					if(current.getDraw() < UPPER_MARGIN && current.getDraw() > LOWER_MARGIN && current.getDraw() <= (PERCENT_MARGIN * previous.getDraw()) ){
 						
-						// if event id do not exist, add it
+						// if event id do not exist, and is in time range, add it
 						if(!m.exist(mailMoneylineEvent, current.getEventID()) && inTimeRange(current)) {
 							
 							Moneyline eventInfo = new Moneyline();
