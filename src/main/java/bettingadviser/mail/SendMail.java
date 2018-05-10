@@ -75,11 +75,7 @@ public class SendMail {
 				long hoursToGame = minutesToGame / 60;
 				minutesToGame = minutesToGame % 60;
 				
-				// add event info if gamestart is under 7h
-				if(hoursToGame < 7) {
-					tmp += m.getEventInfo() + " | (" + hoursToGame + "h " + minutesToGame + "min -> Gamestart) " + "\n";
-					sendMail = true;
-				}
+				tmp += m.getEventInfo() + " | (" + hoursToGame + "h " + minutesToGame + "min -> Gamestart) " + "\n";
 				
 				// DEBUGGING
 				System.out.println(m.getEventInfo());
@@ -95,12 +91,10 @@ public class SendMail {
 			// set content
 			message.setSubject("Good Bets/Odds");
 			message.setText(tmp);
+
+			Transport.send(message);
+			System.out.println("E-mail sent");
 			
-			// send mail if good events exist
-			if(sendMail) {
-				Transport.send(message);
-				System.out.println("E-mail sent");
-			}
 			
 		}catch(MessagingException me) {
 			me.printStackTrace();

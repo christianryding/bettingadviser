@@ -1,6 +1,8 @@
 package bettingadviser.compare;
 
 import java.text.DecimalFormat;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -36,6 +38,7 @@ public class Compare extends TimerTask{
 	private double UPPER_MARGIN;
 	private double LOWER_MARGIN;
 	private boolean CHECK_LIVE_EVENTS;
+	private int TIME_RANGE;
 	
 	
 	/**
@@ -67,6 +70,7 @@ public class Compare extends TimerTask{
 		UPPER_MARGIN = 3.5;
 		LOWER_MARGIN = 1.2;
 		CHECK_LIVE_EVENTS = false;
+		TIME_RANGE = 7;
 	}
 
 	
@@ -116,6 +120,14 @@ public class Compare extends TimerTask{
 	 * @param checkLiveEvents
 	 */
 	public void setCheckLiveEvents(boolean checkLiveEvents){ CHECK_LIVE_EVENTS = checkLiveEvents; }
+	
+	
+	/**
+	 * Set time range for events
+	 * 
+	 * @param timeRange
+	 */
+	public void setTimeRange(int timeRange) { TIME_RANGE = timeRange; }
 	
 	
 	/**
@@ -211,7 +223,7 @@ public class Compare extends TimerTask{
 					if(current.getAway() < UPPER_MARGIN && current.getAway() > LOWER_MARGIN && current.getAway() <= (PERCENT_MARGIN * previous.getAway()) ){	
 						
 						// if event id do not exist, add moneylineinfo to list
-						if(!m.exist(mailMoneylineEvent, current.getEventID())) {
+						if(!m.exist(mailMoneylineEvent, current.getEventID()) && inTimeRange(current)) {
 							Moneyline eventInfo = new Moneyline();
 							eventInfo.setEventInfoID(current.getAwayStr() + " | " + previous.getAway() + " -> " + current.getAway() 
 																+ " (-" + df.format(100*(1-(current.getAway()/previous.getAway()))) + "%)" 
@@ -229,7 +241,7 @@ public class Compare extends TimerTask{
 					if(current.getHome() < UPPER_MARGIN && current.getHome() > LOWER_MARGIN && current.getHome() <= (PERCENT_MARGIN * previous.getHome()) ){	
 						
 						// if event id do not exist, add moneylineinfo to list
-						if(!m.exist(mailMoneylineEvent, current.getEventID())) {
+						if(!m.exist(mailMoneylineEvent, current.getEventID()) && inTimeRange(current)) {
 							Moneyline eventInfo = new Moneyline();
 							eventInfo.setEventInfoID(current.getHomeStr() + " | "  + " " + previous.getHome() + " -> " + current.getHome() 
 														+ " (-"	+ df.format(100*(1-(current.getHome()/previous.getHome()))) + "%)" 
@@ -247,7 +259,7 @@ public class Compare extends TimerTask{
 					if(current.getDraw() < UPPER_MARGIN && current.getDraw() > LOWER_MARGIN && current.getDraw() <= (PERCENT_MARGIN * previous.getDraw()) ){
 						
 						// if event id do not exist, add it
-						if(!m.exist(mailMoneylineEvent, current.getEventID())) {
+						if(!m.exist(mailMoneylineEvent, current.getEventID()) && inTimeRange(current)) {
 							
 							Moneyline eventInfo = new Moneyline();
 							eventInfo.setEventInfoID("Draw -> Home: " + current.getHomeStr() + " Away: " + current.getAwayStr() + " | "	
@@ -265,6 +277,33 @@ public class Compare extends TimerTask{
 					break;
 				}
 			}	
+		}
+	}
+	
+	/**
+	 * See if event is within given time range
+	 * 
+	 * @param m
+	 * @return
+	 */
+	public boolean inTimeRange(Moneyline m) {
+		
+		// get current time and start time for event
+		Instant instantNow = Instant.now();
+		Instant i2; 
+		i2 = Instant.parse(m.getCutoff());
+		
+		// calculate time left to game starts
+		long minutesToGame = Duration.between(instantNow, i2).toMinutes();
+		long hoursToGame = minutesToGame / 60;
+		minutesToGame = minutesToGame % 60;
+		
+		// check if event gamestart is under TIME_RANGE given
+		if(hoursToGame < TIME_RANGE) {
+			return true;
+		}
+		else {
+			return false;
 		}
 	}
 	
