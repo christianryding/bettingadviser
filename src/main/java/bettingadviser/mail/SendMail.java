@@ -78,8 +78,8 @@ public class SendMail {
 				
 				// DEBUGGING
 				System.out.println(m.getEventInfo());
+				System.out.println("HOME: " + m.getHomeStr() + "AWAY: " + m.getAwayStr());
 				System.out.println("LIVESTATUS: " + m.getLiveStatus());
-				System.out.println(m.getEventInfo());
 				System.out.println(hoursToGame + "h " + minutesToGame + "min -> Gamestart");
 			}
 			
