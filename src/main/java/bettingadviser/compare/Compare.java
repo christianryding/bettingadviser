@@ -144,9 +144,7 @@ public class Compare extends TimerTask{
 	
 	
 	/**
-	 * Every INTERVAL_MIN after third iteration, check if better odds have appeared.
-	 * First,second and third iteration, add odds to list. 
-	 * Fourth iteration add odds to list and compare odds from previous iterations.
+	 * Every INTERVAL_MIN after third iteration, check if better odds have appeared by comparing them to older odds.
 	 */
 	TimerTask task = new TimerTask() {
 		
@@ -264,7 +262,6 @@ public class Compare extends TimerTask{
 						
 						// if event id do not exist, and is in time range, add it
 						if(!m.exist(mailMoneylineEvent, current.getEventID()) && inTimeRange(current)) {
-							
 							Moneyline eventInfo = new Moneyline();
 							eventInfo.setEventInfoID("Draw -> Home: " + current.getHomeStr() + " Away: " + current.getAwayStr() + " | "	
 														+ previous.getDraw() + " -> " + current.getDraw() 

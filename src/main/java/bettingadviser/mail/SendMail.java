@@ -55,12 +55,15 @@ public class SendMail {
 		}
 		
 		try {
+			
+			// create message
 			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(from));
 			InternetAddress[] iAdressArray = InternetAddress.parse(mailAddresses);
 			message.setRecipients(Message.RecipientType.TO, iAdressArray);
 			
 			String tmp = "Events:\n";// mail string
+			
 			for(Moneyline m : mailMoneylineEvent) {
 				
 				// get current time and start time for event
@@ -94,11 +97,9 @@ public class SendMail {
 			Transport.send(message);
 			System.out.println("E-mail sent");
 			
-			
 		}catch(MessagingException me) {
 			me.printStackTrace();
 		}
 	}
-	
-	
+		
 }
