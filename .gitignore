@@ -1,1 +1,9 @@
-/target/
+# folders
+
+target/
+.settings/
+runnable/
+
+
+# files
+.classpath

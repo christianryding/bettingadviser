@@ -23,7 +23,7 @@ public class ShowBets {
 		String mailFrom = args[2];
 		String mailFromPassw = args[3];
 
-		// get every emailaddress to send to
+		// get every email addresses to send to
 		ArrayList<String> mailTo = new ArrayList<String>();
 		for(int i = 4; i < args.length; i++) {
 			mailTo.add(args[i]);
@@ -31,9 +31,9 @@ public class ShowBets {
 
 		// run program with settings
 		Compare compare = new Compare(username, password, mailFrom, mailFromPassw, mailTo);
-		compare.setSportID(new SPORT_IDS().ESPORT);
-		compare.setTimeInterval(10);
-		compare.setPercent(0.95);
+		compare.setSportID(new SPORT_IDS().SOCCER);
+		compare.setTimeInterval(5);
+		compare.setPercent(0.97);
 		//compare.setLowerMargin(1.3);
 		//compare.setUpperMargin(3.4);
 		//compare.setCheckLiveEvents(false);
