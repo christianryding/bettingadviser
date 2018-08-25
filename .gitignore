@@ -1,9 +1,10 @@
 # folders
-
-target/
 .settings/
 runnable/
+target/
+
 
 
 # files
 .classpath
+.project
