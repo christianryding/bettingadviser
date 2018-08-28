@@ -10,6 +10,7 @@ import com.beust.jcommander.Parameter;
 import com.beust.jcommander.internal.Lists;
 
 public class JCommanderDefinitions{
+	
     @Parameter
     public List<String> parameters = Lists.newArrayList();
  
@@ -32,21 +33,9 @@ public class JCommanderDefinitions{
     		required = true,
     		description = "Password for mailaddress to send from")
     public String mailfrompswd = "";
-    
-    
-    @Parameter(names = { "-log", "-verbose" }, 
-    		description = "Level of verbosity")
-    public Integer verbose = 1;
  
     @Parameter(names = "-mailto",
     		required=true,
     		description = "Comma-separated list of emailaddresses")
     public String mailto;
- 
-
-    
-
-    @DynamicParameter(names = "-D", 
-    		description = "Dynamic parameters go here")
-    public Map<String, String> dynamicParams = new HashMap<String, String>();
 }

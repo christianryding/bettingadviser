@@ -23,21 +23,9 @@ public class ShowBets {
 	 */
 	public static void main(String[] args){
 		
-		String[] argv = { 
-				"-log", "2", 
-	            "-username", "chry",
-	            "-password", "pswd", 
-	            "-mailfrom", "chry@gmail.com",
-	            "-mailfrompswd", "mailfrompswd", 
-				"-mailto", "mail1,mail2,mail3",
-
-	            "-Doption=value", "a", "b", "c" };
-		
-		RunWithArguments rwa = new RunWithArguments(argv);
+		RunWithArguments rwa = new RunWithArguments(args);
 		rwa.run();
 
-		
-		
 /*		// settings
 		String username = args[0];
 		String password = args[1];
