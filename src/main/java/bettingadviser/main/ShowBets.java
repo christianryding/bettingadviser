@@ -1,14 +1,20 @@
 package bettingadviser.main;
 
 import java.util.ArrayList;
+
+import com.beust.jcommander.JCommander;
+
 import bettingadviser.compare.Compare;
 import bettingadviser.enums.SPORT_IDS;
+
+
 
 /**
  * 
  * @author christian ryding
  */
 public class ShowBets {
+
 
 	/**
 	 * Main program
@@ -17,7 +23,22 @@ public class ShowBets {
 	 */
 	public static void main(String[] args){
 		
-		// settings
+		String[] argv = { 
+				"-log", "2", 
+	            "-username", "chry",
+	            "-password", "pswd", 
+	            "-mailfrom", "chry@gmail.com",
+	            "-mailfrompswd", "mailfrompswd", 
+				"-mailto", "mail1,mail2,mail3",
+
+	            "-Doption=value", "a", "b", "c" };
+		
+		RunWithArguments rwa = new RunWithArguments(argv);
+		rwa.run();
+
+		
+		
+/*		// settings
 		String username = args[0];
 		String password = args[1];
 		String mailFrom = args[2];
@@ -38,6 +59,6 @@ public class ShowBets {
 		//compare.setUpperMargin(3.4);
 		//compare.setCheckLiveEvents(false);
 		//compare.setTimeRange(8);
-		compare.start();
+		compare.start();*/
 	}
 }
