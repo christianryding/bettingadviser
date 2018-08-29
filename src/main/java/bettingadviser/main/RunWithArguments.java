@@ -1,18 +1,15 @@
 package bettingadviser.main;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
-
 import bettingadviser.compare.Compare;
 import bettingadviser.enums.SPORT_IDS;
 
 public class RunWithArguments {
 
-	JCommanderDefinitions jCommDef = new JCommanderDefinitions();
+	ParameterSettings jCommDef = new ParameterSettings();
 	String [] jCommArgs;
 	
 	/**

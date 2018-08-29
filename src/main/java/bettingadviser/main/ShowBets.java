@@ -1,14 +1,5 @@
 package bettingadviser.main;
 
-import java.util.ArrayList;
-
-import com.beust.jcommander.JCommander;
-
-import bettingadviser.compare.Compare;
-import bettingadviser.enums.SPORT_IDS;
-
-
-
 /**
  * 
  * @author christian ryding
