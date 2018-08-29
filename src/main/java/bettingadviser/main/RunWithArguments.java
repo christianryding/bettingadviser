@@ -66,7 +66,7 @@ public class RunWithArguments {
 										jCommDef.mailfrompswd, 
 										mailToList);
 	
-		// set arguments
+		// set arguments if given, else set default value
 		if(jCommDef.sport == 29 || jCommDef.sport == 12 || jCommDef.sport == 33 || jCommDef.sport == 3 || jCommDef.sport == 4 || 
 				jCommDef.sport == 19 ||jCommDef.sport == 18 || jCommDef.sport == 28 || jCommDef.sport == 15) {
 			compare.setSportID(jCommDef.sport);
