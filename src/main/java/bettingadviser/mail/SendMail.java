@@ -3,6 +3,7 @@ package bettingadviser.mail;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -16,11 +17,11 @@ import bettingadviser.compare.Moneyline;
 public class SendMail {
 
 	private final String from, password;
-	private final ArrayList<String> mailTo;
+	private final List<String> mailTo;
 	private Properties properties;
 	private Session session;
 	
-	public SendMail(ArrayList<String> gmailTo, String gmailFrom, String pass) {
+	public SendMail(List<String> gmailTo, String gmailFrom, String pass) {
 		from = gmailFrom;
 		mailTo = gmailTo;
 		password = pass;

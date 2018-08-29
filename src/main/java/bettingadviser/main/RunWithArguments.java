@@ -1,6 +1,8 @@
 package bettingadviser.main;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
@@ -14,8 +16,9 @@ public class RunWithArguments {
 	String [] jCommArgs;
 	
 	/**
+	 * Constructor that sets the arguments
 	 * 
-	 * @param args
+	 * @param args arguments given by user
 	 */
 	public RunWithArguments(String [] args){
 		jCommArgs = args;
@@ -23,7 +26,7 @@ public class RunWithArguments {
 	
 	
 	/**
-	 * 
+	 * Run program with arguments given
 	 */
 	public void run(){
 		
@@ -44,43 +47,25 @@ public class RunWithArguments {
 		System.out.println(jCommDef.mailfrompswd);
 		System.out.println(jCommDef.mailto);
 		
-		/*		// settings
-		String username = args[0];
-		String password = args[1];
-		String mailFrom = args[2];
-		String mailFromPassw = args[3];
-
-		// get every email addresses to send to
-		ArrayList<String> mailTo = new ArrayList<String>();
-		for(int i = 4; i < args.length; i++) {
-			mailTo.add(args[i]);
-		}
-	*/
+		// settings
+		String str = jCommDef.mailto;
+		List<String> mailToList = Arrays.asList(str.split(","));
 		
-		ArrayList<String> mailTo = new ArrayList<String>();
-		mailTo.add(jCommDef.mailto);
-		
-		
-		//CUT EACHMAILADDRESS AT COMMA
-		
-		
-		
-		/*
 		// run program with settings
 		Compare compare = new Compare(	jCommDef.username, 
 										jCommDef.password, 
 										jCommDef.mailfrom, 
 										jCommDef.mailfrompswd, 
-										mailTo);
-		*/
-		//compare.setSportID(new SPORT_IDS().SOCCER);
-		//compare.setTimeInterval(5);
-		//compare.setPercent(0.97);
+										mailToList);
+	
+		compare.setSportID(new SPORT_IDS().SOCCER);
+		compare.setTimeInterval(5);
+		compare.setPercent(0.97);
 		//compare.setLowerMargin(1.3);
 		//compare.setUpperMargin(3.4);
 		//compare.setCheckLiveEvents(false);
-		//compare.setTimeRange(8);
-		//compare.start();
+		compare.setTimeRange(30);
+		compare.start();
 	}
 	
 

@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -20,7 +21,8 @@ import pinnacle.api.dataobjects.Fixtures.Event;
 public class Compare extends TimerTask{
 	
 	private final String mailFrom, mailFromPassw, username, password;// constructor values
-	private final ArrayList<String> mailTo;
+	//private final ArrayList<String> mailTo;
+	private final List<String> mailTo;
 	private int counter;
 	private ParseEventsAndOdds printOut;
 	private GetEvents getEvents;
@@ -50,7 +52,7 @@ public class Compare extends TimerTask{
 	 * @param mailFrom
 	 * @param mailFromPassw
 	 */
-	public Compare(String username, String password, String mailFrom, String mailFromPassw, ArrayList<String> mailTo) {
+	public Compare(String username, String password, String mailFrom, String mailFromPassw, List<String> mailTo) {//ArrayList<String> mailTo) {
 		timer = new Timer();
 		this.username = username;
 		this.password = password;
