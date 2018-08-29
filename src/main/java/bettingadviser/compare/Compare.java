@@ -64,15 +64,6 @@ public class Compare extends TimerTask{
 		lastEventsForCompare = new ArrayList<ArrayList<Moneyline>>(); // holds previous odds for comparison
 		df = new DecimalFormat();
 		df.setMaximumFractionDigits(2);
-		
-		// default values
-		SPORT_ID = 29;
-		INTERVAL_MIN = 10;
-		PERCENT_MARGIN = 0.9;
-		UPPER_MARGIN = 3.5;
-		LOWER_MARGIN = 1.2;
-		CHECK_LIVE_EVENTS = false;
-		TIME_RANGE = 7;
 	}
 
 	

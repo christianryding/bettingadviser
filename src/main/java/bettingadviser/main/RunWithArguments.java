@@ -3,6 +3,7 @@ package bettingadviser.main;
 import java.util.Arrays;
 import java.util.List;
 import com.beust.jcommander.JCommander;
+import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
 import bettingadviser.compare.Compare;
 import bettingadviser.enums.SPORT_IDS;
@@ -11,6 +12,16 @@ public class RunWithArguments {
 
 	ParameterSettings jCommDef = new ParameterSettings();
 	String [] jCommArgs;
+
+	// default values
+	private int SPORT_ID = new SPORT_IDS().SOCCER;
+	private int INTERVAL_MIN = 10;
+	private double PERCENT_MARGIN = 0.9;
+	private double UPPER_MARGIN = 3.5;
+	private double LOWER_MARGIN = 1.2;
+	private boolean CHECK_LIVE_EVENTS = false;
+	private int TIME_RANGE = 30;
+
 	
 	/**
 	 * Constructor that sets the arguments
@@ -55,16 +66,50 @@ public class RunWithArguments {
 										jCommDef.mailfrompswd, 
 										mailToList);
 	
-		compare.setSportID(new SPORT_IDS().SOCCER);
-		compare.setTimeInterval(5);
-		compare.setPercent(0.97);
-		//compare.setLowerMargin(1.3);
-		//compare.setUpperMargin(3.4);
-		//compare.setCheckLiveEvents(false);
-		compare.setTimeRange(30);
+		// set arguments
+		if(jCommDef.sport == 29 || jCommDef.sport == 12 || jCommDef.sport == 33 || jCommDef.sport == 3 || jCommDef.sport == 4 || 
+				jCommDef.sport == 19 ||jCommDef.sport == 18 || jCommDef.sport == 28 || jCommDef.sport == 15) {
+			compare.setSportID(jCommDef.sport);
+		}else {
+			compare.setSportID(SPORT_ID);
+		}
+		
+		if(jCommDef.interval > 0 && jCommDef.interval <= 30) {
+			compare.setTimeInterval(jCommDef.interval);
+		}else {
+			compare.setTimeInterval(INTERVAL_MIN);
+		}
+		
+		if(jCommDef.percentage > 0 && jCommDef.percentage < 1) {
+			compare.setPercent(jCommDef.percentage);
+		}else {
+			compare.setPercent(PERCENT_MARGIN);
+		}
+		
+		if(jCommDef.lowerMargins > 1.1 && jCommDef.lowerMargins < 50) {
+			compare.setLowerMargin(jCommDef.lowerMargins);
+		}else {
+			compare.setLowerMargin(LOWER_MARGIN);
+		}
+		
+		if(jCommDef.upperMargin > 1.2 && jCommDef.upperMargin < 100) {
+			compare.setUpperMargin(jCommDef.upperMargin);
+		}else {
+			compare.setUpperMargin(UPPER_MARGIN);
+		}
+		
+		if(jCommDef.checkLive != CHECK_LIVE_EVENTS) {
+			compare.setCheckLiveEvents(jCommDef.checkLive);
+		}else {
+			compare.setCheckLiveEvents(CHECK_LIVE_EVENTS);
+		}
+		
+		if(jCommDef.rangeMinutes > 0 && jCommDef.rangeMinutes < 1000) {
+			compare.setTimeRange(jCommDef.rangeMinutes);
+		}else {
+			compare.setTimeRange(TIME_RANGE);
+		}
+		
 		compare.start();
-	}
-	
-
-	
+	}	
 }
