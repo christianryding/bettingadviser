@@ -21,7 +21,6 @@ import pinnacle.api.dataobjects.Fixtures.Event;
 public class Compare extends TimerTask{
 	
 	private final String mailFrom, mailFromPassw, username, password;// constructor values
-	//private final ArrayList<String> mailTo;
 	private final List<String> mailTo;
 	private int counter;
 	private ParseEventsAndOdds printOut;
@@ -32,15 +31,13 @@ public class Compare extends TimerTask{
 	private ArrayList<ArrayList<Moneyline>> lastEventsForCompare;
 	private ArrayList<Moneyline> mailMoneylineEvent;
 	private ArrayList<Moneyline> currentEvents;
-	
-	// default values
-	private int SPORT_ID;
-	private int INTERVAL_MIN;
-	private double PERCENT_MARGIN;
-	private double UPPER_MARGIN;
-	private double LOWER_MARGIN;
-	private boolean CHECK_LIVE_EVENTS;
-	private int TIME_RANGE;
+	private int sportID;
+	private int interval_min;
+	private double percent_margin;
+	private double upper_margin;
+	private double lower_margin;
+	private boolean check_live_events;
+	private int time_range;
 	
 	
 	/**
@@ -52,7 +49,7 @@ public class Compare extends TimerTask{
 	 * @param mailFrom
 	 * @param mailFromPassw
 	 */
-	public Compare(String username, String password, String mailFrom, String mailFromPassw, List<String> mailTo) {//ArrayList<String> mailTo) {
+	public Compare(String username, String password, String mailFrom, String mailFromPassw, List<String> mailTo) {
 		timer = new Timer();
 		this.username = username;
 		this.password = password;
@@ -72,7 +69,7 @@ public class Compare extends TimerTask{
 	 * 
 	 * @param sportID
 	 */
-	public void setSportID(int sportID) { SPORT_ID = sportID; }
+	public void setSportID(int sportID) { this.sportID = sportID; }
 	
 	
 	/**
@@ -80,7 +77,7 @@ public class Compare extends TimerTask{
 	 * 
 	 * @param interval
 	 */
-	public void setTimeInterval(int interval) { INTERVAL_MIN = interval; }
+	public void setTimeInterval(int interval) { this.interval_min = interval; }
 	
 	
 	/**
@@ -88,7 +85,7 @@ public class Compare extends TimerTask{
 	 * 
 	 * @param percentValue
 	 */
-	public void setPercent(double percentValue) { PERCENT_MARGIN = percentValue; }
+	public void setPercent(double percentValue) { this.percent_margin = percentValue; }
 	
 	
 	/**
@@ -96,7 +93,7 @@ public class Compare extends TimerTask{
 	 * 
 	 * @param margin
 	 */
-	public void setUpperMargin(double margin) { UPPER_MARGIN = margin; }
+	public void setUpperMargin(double margin) { this.upper_margin = margin; }
 	
 	
 	/**
@@ -104,7 +101,7 @@ public class Compare extends TimerTask{
 	 * 
 	 * @param margin
 	 */
-	public void setLowerMargin(double margin) { LOWER_MARGIN = margin; }
+	public void setLowerMargin(double margin) { this.lower_margin = margin; }
 	
 	
 	/**
@@ -112,7 +109,7 @@ public class Compare extends TimerTask{
 	 * 
 	 * @param checkLiveEvents
 	 */
-	public void setCheckLiveEvents(boolean checkLiveEvents){ CHECK_LIVE_EVENTS = checkLiveEvents; }
+	public void setCheckLiveEvents(boolean checkLiveEvents){ this.check_live_events = checkLiveEvents; }
 	
 	
 	/**
@@ -120,7 +117,7 @@ public class Compare extends TimerTask{
 	 * 
 	 * @param timeRange
 	 */
-	public void setTimeRange(int timeRange) { TIME_RANGE = timeRange; }
+	public void setTimeRange(int timeRange) { this.time_range = timeRange; }
 	
 	
 	/**
@@ -133,7 +130,7 @@ public class Compare extends TimerTask{
 	/**
 	 * Start timertask that runs every INTERVAL_MIN minutes
 	 */
-	public void start () {timer.scheduleAtFixedRate(task, 0, 1000*60*INTERVAL_MIN);}
+	public void start () {timer.scheduleAtFixedRate(task, 0, 1000*60*interval_min);}
 	
 	
 	/**
@@ -143,7 +140,7 @@ public class Compare extends TimerTask{
 		
 		@Override
 		public void run() {
-			printOut = new ParseEventsAndOdds(CHECK_LIVE_EVENTS);
+			printOut = new ParseEventsAndOdds(check_live_events);
 			getEvents = new GetEvents(username, password);
 			getOdds = new GetOdds(username, password);
 			currentEvents = new ArrayList<Moneyline>();
@@ -151,11 +148,11 @@ public class Compare extends TimerTask{
 			
 			// get events
 			ArrayList<Event> fixtureEvents = new ArrayList<Event>(); 
-			fixtureEvents = getEvents.getListOfEvents(SPORT_ID);
+			fixtureEvents = getEvents.getListOfEvents(sportID);
 		
 			//  get odds
 			String jsonOdds = null;
-			jsonOdds = getOdds.getListOfEvents(SPORT_ID);
+			jsonOdds = getOdds.getListOfEvents(sportID);
 			
 			// print/save odds and event information
 			currentEvents = printOut.parseAndPrint(fixtureEvents, jsonOdds);	
@@ -167,11 +164,11 @@ public class Compare extends TimerTask{
 				lastEventsForCompare.add(currentEvents);
 				
 				// compare and get list of 5 minutes good odds
-				compareEvents(lastEventsForCompare.get(0), lastEventsForCompare.get(1), INTERVAL_MIN);
+				compareEvents(lastEventsForCompare.get(0), lastEventsForCompare.get(1), interval_min);
 				// compare and get list of 10 minutes good odds
-				compareEvents(lastEventsForCompare.get(0), lastEventsForCompare.get(2), INTERVAL_MIN*2);
+				compareEvents(lastEventsForCompare.get(0), lastEventsForCompare.get(2), interval_min*2);
 				// compare and get list of 15 minutes good odds
-				compareEvents(lastEventsForCompare.get(0), lastEventsForCompare.get(3), INTERVAL_MIN*3);
+				compareEvents(lastEventsForCompare.get(0), lastEventsForCompare.get(3), interval_min*3);
 				
 				// remove old list of events
 				lastEventsForCompare.remove(0);
@@ -211,7 +208,7 @@ public class Compare extends TimerTask{
 				if(current.getEventID() == previous.getEventID()) {
 					
 					// check away odds
-					if(current.getAway() < UPPER_MARGIN && current.getAway() > LOWER_MARGIN && current.getAway() <= (PERCENT_MARGIN * previous.getAway()) ){	
+					if(current.getAway() < upper_margin && current.getAway() > lower_margin && current.getAway() <= (percent_margin * previous.getAway()) ){	
 						
 						// if event id do not exist, and is in time range, add moneylineinfo to list
 						if(!m.exist(mailMoneylineEvent, current.getEventID()) && inTimeRange(current)) {
@@ -223,7 +220,7 @@ public class Compare extends TimerTask{
 							eventInfo.setHomeStr(current.getHomeStr());
 							eventInfo.setEventID(current.getEventID());
 							eventInfo.setLeagueID(current.getLeagueID());
-							eventInfo.setSportID(SPORT_ID);
+							eventInfo.setSportID(sportID);
 							eventInfo.setCutoff(current.getCutoff());
 							eventInfo.setLiveStatus(current.getLiveStatus());
 							mailMoneylineEvent.add(eventInfo);
@@ -231,7 +228,7 @@ public class Compare extends TimerTask{
 					}
 					
 					// check home odds
-					if(current.getHome() < UPPER_MARGIN && current.getHome() > LOWER_MARGIN && current.getHome() <= (PERCENT_MARGIN * previous.getHome()) ){	
+					if(current.getHome() < upper_margin && current.getHome() > lower_margin && current.getHome() <= (percent_margin * previous.getHome()) ){	
 						
 						// if event id do not exist, and is in time range, add moneylineinfo to list
 						if(!m.exist(mailMoneylineEvent, current.getEventID()) && inTimeRange(current)) {
@@ -243,7 +240,7 @@ public class Compare extends TimerTask{
 							eventInfo.setHomeStr(current.getHomeStr());
 							eventInfo.setEventID(current.getEventID());
 							eventInfo.setLeagueID(current.getLeagueID());
-							eventInfo.setSportID(SPORT_ID);
+							eventInfo.setSportID(sportID);
 							eventInfo.setCutoff(current.getCutoff());
 							eventInfo.setLiveStatus(current.getLiveStatus());
 							mailMoneylineEvent.add(eventInfo);
@@ -251,7 +248,7 @@ public class Compare extends TimerTask{
 					}
 					
 					// check draw odds
-					if(current.getDraw() < UPPER_MARGIN && current.getDraw() > LOWER_MARGIN && current.getDraw() <= (PERCENT_MARGIN * previous.getDraw()) ){
+					if(current.getDraw() < upper_margin && current.getDraw() > lower_margin && current.getDraw() <= (percent_margin * previous.getDraw()) ){
 						
 						// if event id do not exist, and is in time range, add it
 						if(!m.exist(mailMoneylineEvent, current.getEventID()) && inTimeRange(current)) {
@@ -264,7 +261,7 @@ public class Compare extends TimerTask{
 							eventInfo.setHomeStr(current.getHomeStr());
 							eventInfo.setEventID(current.getEventID());
 							eventInfo.setLeagueID(current.getLeagueID());
-							eventInfo.setSportID(SPORT_ID);
+							eventInfo.setSportID(sportID);
 							eventInfo.setCutoff(current.getCutoff());
 							eventInfo.setLiveStatus(current.getLiveStatus());
 							mailMoneylineEvent.add(eventInfo);
@@ -295,7 +292,7 @@ public class Compare extends TimerTask{
 		minutesToGame = minutesToGame % 60;
 		
 		// check if event gamestart is under TIME_RANGE given
-		if(hoursToGame < TIME_RANGE && minutesToGame >= 0) {
+		if(hoursToGame < time_range && minutesToGame >= 0) {
 			return true;
 		}
 		else {

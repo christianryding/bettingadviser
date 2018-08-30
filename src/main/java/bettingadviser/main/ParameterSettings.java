@@ -3,8 +3,13 @@ package bettingadviser.main;
 import java.util.List;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.internal.Lists;
-import bettingadviser.enums.DefaultSettings;
 
+import bettingadviser.enums.DEFAULT_SETTINGS;
+
+/**
+ * 
+ * @author christian ryding
+ */
 public class ParameterSettings{
 		
     @Parameter
@@ -58,7 +63,7 @@ public class ParameterSettings{
     @Parameter(names = {"-l", "--checklive"},
     		required=false,
     		description = "Compare live events to")
-    public boolean checkLive;
+    public boolean checkLive = new DEFAULT_SETTINGS().CHECK_LIVE_EVENTS;
     
     @Parameter(names = {"-tr", "--timerange"},
     		required=false,
